@@ -7,10 +7,10 @@ Created on Tue Dec 12 13:50:27 2023
 # ADS1 - Assignment 2
 
 """
-This assignment explores the connection between CO2 production and GDP 
-(energy efficiency). Throughout the report, the inter-relationships 
-between the relevant variables, the nature of the annual data changes, 
-and how they affected GDP country-wise and year-wise from 2015 to 2020 evaluate.
+This assignment explores the connection between CO2 production and GDP. 
+Throughout the report, the inter-relationships between the relevant variables, 
+the nature of the annual data changes, and how they affected GDP country-wise
+and year-wise from 2015 to 2020 evaluate.
 """
 
 # Read the data
@@ -50,7 +50,7 @@ def transpose_and_clean_dataset(csv_file):
     df = df.melt(id_vars=['Series Name', 'Country Name'],
                  var_name='Year', value_name='Value')
 
-    # Optionally, convert the 'Year' column to a numeric type if it's stored as a string
+    # Convert the 'Year' column to a numeric type
     df['Year'] = pd.to_numeric(df['Year'].str.extract(r'(\d+)')[0])
 
     # Set 'Year' as the new index
@@ -60,13 +60,15 @@ def transpose_and_clean_dataset(csv_file):
 
 
 # Actual CSV file
-result_df = transpose_and_clean_dataset(r'C:\Users\uresha\Dropbox\PC\Desktop\UH\2. Applied Data Science 1\Assignment 2\DataSet1.csv')
+result_df = transpose_and_clean_dataset(
+    r'C:\Users\uresha\Dropbox\PC\Desktop\UH\2. Applied Data Science 1\Assignment 2\DataSet1.csv')
 
-# Print resulting DataFrame
+# Print DataFrame
 print(result_df)
 
 # Save the transposed DataFrame to a new CSV file
-result_df.to_csv(r'C:\Users\uresha\Dropbox\PC\Desktop\UH\2. Applied Data Science 1\Assignment 2\transposed_dataset.csv')
+result_df.to_csv(
+    r'C:\Users\uresha\Dropbox\PC\Desktop\UH\2. Applied Data Science 1\Assignment 2\transposed_dataset.csv')
 
 # Explore the statistical properties
 countries = dataset['Country Name'].unique()
@@ -80,14 +82,11 @@ for country in countries:
 
 # Two other statistical tools
 # Skewness
-    """
-    Skewness to compute the kurtosis of a distribution
-    """
 
 
 def skew(dist):
     """
-    Calculates the centralised and normalised skewness of dist.
+    Calculates the centralised and normalised skewness.
     """
 
     # calculates average and std, dev for centralising and normalising
@@ -107,11 +106,12 @@ skewness_value = skew(result_df['Value'])
 rounded_skewness_value = np.round(skewness_value, 3)
 print(f"Skewness: {rounded_skewness_value}")
 
-#Kutosis
-    
+# Kutosis
+
+
 def kurtosis(dist):
     """
-    Kurtosis to compute the kurtosis of a distribution.
+    Calculates the centralised and normalised kurtosis.
     """
 
     # calculates average and std, dev for centralising and normalising
@@ -165,7 +165,7 @@ barplot_co2_emission(result_df)
 
 def barplot_GDP_per_capita(result_df, series_name='GDP (current US$)', figsize=(12, 6), colormap='Spectral'):
     """
-    Multiple bar graph to evaluate the GDP per capita (current US$), year wise. 
+    Multiple bar graph to evaluate the GDP (current US$), year wise. 
     """
     # Filter data for GDP per capita (current US$)
     GDP_per_capita_data = result_df[result_df['Series Name'] == series_name]
@@ -259,7 +259,6 @@ def linegraph_GDP_per_capita_growth(result_df, series_name='GDP per capita growt
 
     # Add labels and title
     plt.xlabel('Year')
-    plt.ylabel('GDP per capita growth (annual %)')
     plt.title(f'{series_name} by Country and Year')
     plt.legend(loc='upper left', bbox_to_anchor=(1, 1))
 
@@ -292,7 +291,6 @@ def linegraph_EIL_of_primary_energy(result_df, series_name='Energy intensity lev
 
     # Add labels and title
     plt.xlabel('Year')
-    plt.ylabel('GDP per capita growth (annual %)')
     plt.title(f'{series_name} by Country and Year')
     plt.legend(loc='upper left', bbox_to_anchor=(1, 1))
 
@@ -304,6 +302,8 @@ def linegraph_EIL_of_primary_energy(result_df, series_name='Energy intensity lev
 linegraph_EIL_of_primary_energy(result_df, colormap='Spectral')
 
 # 7th table
+
+
 """
     Table to visualize the CO2 emissions (metric tons per capita) of 
     countries over the years.
@@ -333,12 +333,14 @@ table.auto_set_column_width(col=list(range(len(pivot_data.columns))))
 plt.show()
 
 # 8th Graph
+
+
 """
     Heatmap to identify and measure the relationship between the variables 
-    in United States. 
+    in India. 
     """
 
-# Filter data for the China
+# Filter data for the India
 india_data = result_df[result_df['Country Name'] == 'India']
 
 # Pivot the DataFrame for easy correlation analysis
@@ -353,50 +355,4 @@ plt.figure(figsize=(12, 8))
 sns.heatmap(correlation_matrix, annot=True,
             cmap='crest', fmt=".2f", linewidths=.5)
 plt.title('Correlation Heatmap for India')
-plt.show()
-
-#################
-
-"""
-Heatmap to identify and measure the relationship between the variables in United States. 
-"""
-
-# Filter data for the United Kingdom
-uk_data = result_df[result_df['Country Name'] == 'United Kingdom']
-
-# Pivot the DataFrame for easy correlation analysis
-pivot_data = uk_data.pivot_table(
-    index='Year', columns='Series Name', values='Value')
-
-# Compute the correlation matrix using the DataFrame statistical method corr()
-correlation_matrix = pivot_data.corr()
-
-# Create a heatmap using seaborn
-plt.figure(figsize=(12, 8))
-sns.heatmap(correlation_matrix, annot=True,
-            cmap='viridis', fmt=".2f", linewidths=.5)
-plt.title('Correlation Heatmap for United Kindom')
-plt.show()
-
-# 3rd Graph
-"""
-    Heatmap to identify and measure the relationship between 
-    the variables in China. 
-    """
-
-# Filter data for the China
-china_data = result_df[result_df['Country Name'] == 'United States']
-
-# Pivot the DataFrame
-pivot_data = china_data.pivot_table(
-    index='Year', columns='Series Name', values='Value')
-
-# Compute the correlation matrix using the DataFrame statistical method corr()
-correlation_matrix = pivot_data.corr()
-
-# Create a heatmap using seaborn
-plt.figure(figsize=(12, 8))
-sns.heatmap(correlation_matrix, annot=True,
-            cmap='mako', fmt=".2f", linewidths=.5)
-plt.title('Correlation Heatmap for China')
 plt.show()
