@@ -93,7 +93,7 @@ def skew(dist):
     aver = np.mean(dist)
     std = np.std(dist)
 
-    # now calculate the skewness
+    # Calculate the skewness
     value = np.sum(((dist-aver) / std)**3) / (len(dist) - 1)
 
     return value
@@ -106,7 +106,7 @@ skewness_value = skew(result_df['Value'])
 rounded_skewness_value = np.round(skewness_value, 3)
 print(f"Skewness: {rounded_skewness_value}")
 
-# Kutosis
+# Kurtosis
 
 
 def kurtosis(dist):
@@ -118,7 +118,7 @@ def kurtosis(dist):
     aver = np.mean(dist)
     std = np.std(dist)
 
-    # now calculate the kurtosis
+    # Calculate the kurtosis
     value = np.sum(((dist-aver) / std)**4) / len(dist-3) - 3.0
 
     return value
