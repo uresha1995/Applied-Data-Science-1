@@ -288,7 +288,7 @@ def plot_gdp_with_fits(result_df):
     print("Logistic Inflection point:", param_logistic[2])
 
     
-    plt.figure(figsize=(10, 8))
+    plt.figure(figsize=(15, 10))
 
     # Plot the original data
     sns.lineplot(x='Year', y='Value', data=result_df, ci=None, label='GDP')
@@ -408,4 +408,3 @@ plt.ylabel("GDP per Capita Growth")
 plt.legend(loc='upper left', bbox_to_anchor=(0, 0, 1, 1))
 plt.title('GDP Forecast with 1 Sigma Error Range')
 plt.show()
-
