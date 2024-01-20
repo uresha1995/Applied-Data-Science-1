@@ -140,9 +140,11 @@ plt.scatter(increment["1990"], increment["Growth"],
 # Show cluster centres with different marker and larger size
 plt.scatter(xkmeans, ykmeans, s=50, c="k", marker="D", label="Cluster Centers")
 
-plt.xlabel("CO2 emission per head 1990")
-plt.ylabel("GDP increment per year [%]")
-plt.legend()
+plt.xlabel("CO2 emission per head 1990", fontsize = 18)
+plt.ylabel("GDP increment per year [%]", fontsize = 18)
+plt.legend(fontsize = 18)
+plt.tick_params(axis='x', labelsize = 15)
+plt.tick_params(axis = 'y', labelsize = 15)
 plt.show()
 
 # DATA FITTING
@@ -442,10 +444,12 @@ plt.figure(figsize=(15, 10))
 sns.lineplot(x=result_df["Year"], y=result_df["Value"], label="GDP", ci=None)
 sns.lineplot(x=year, y=forecast, label="Forecast", ci=None)
 plt.fill_between(year, low, up, color="yellow", alpha=0.7)
-plt.xlabel("Years")
-plt.ylabel("GDP per Capita Growth")
-plt.legend(loc='upper left', bbox_to_anchor=(0, 0, 1, 1))
-plt.title('GDP per Capita Growth Forecast - Global Level ')
+plt.xlabel("Years", fontsize = 24)
+plt.ylabel("GDP per Capita Growth", fontsize = 18)
+plt.legend(loc='upper left', bbox_to_anchor=(0, 0, 1, 1), fontsize = 18)
+plt.title('GDP per Capita Growth Forecast - Global Level ', fontsize = 18)
+plt.tick_params(axis='x', labelsize = 15)
+plt.tick_params(axis = 'y', labelsize = 15)
 plt.show()
 
 # Forecast plot for Randomly selected countries
@@ -481,10 +485,12 @@ plt.plot(nepal_data["Year"], logistic(
 plt.plot(forecast_years, logistic(forecast_years, *param_logistic),
          label='Forecast', linestyle='--')
 
-plt.title('GDP per Capita Forcast (Cluster 1) - Nepal')
-plt.xlabel('Year')
-plt.ylabel('GDP per Capita ($)')
-plt.legend(loc='upper left', bbox_to_anchor=(0, 0, 1, 1))
+plt.title('GDP per Capita Forcast (Cluster 1) - Nepal', fontsize = 18)
+plt.xlabel('Year', fontsize = 18)
+plt.ylabel('GDP per Capita ($)', fontsize = 18)
+plt.legend(loc='upper left', bbox_to_anchor=(0, 0, 1, 1), fontsize = 18)
+plt.tick_params(axis='x', labelsize = 15)
+plt.tick_params(axis = 'y', labelsize = 15)
 plt.show()
 
 
@@ -515,10 +521,12 @@ plt.plot(norway_data["Year"], logistic(
 plt.plot(forecast_years, logistic(forecast_years, *param_logistic),
          label='Forecast', linestyle='--')
 
-plt.title('GDP per Capita Forcast (Cluster 2) - Norway')
-plt.xlabel('Year')
-plt.ylabel('GDP per Capita ($)')
-plt.legend(loc='upper left', bbox_to_anchor=(0, 0, 1, 1))
+plt.title('GDP per Capita Forcast (Cluster 2) - Norway', fontsize = 18)
+plt.xlabel('Year', fontsize = 18)
+plt.ylabel('GDP per Capita ($)', fontsize = 18)
+plt.legend(loc='upper left', bbox_to_anchor=(0, 0, 1, 1), fontsize = 18)
+plt.tick_params(axis='x', labelsize = 15)
+plt.tick_params(axis = 'y', labelsize = 15)
 plt.show()
 
 
@@ -549,8 +557,10 @@ plt.plot(china_data["Year"], logistic(
 plt.plot(forecast_years, logistic(forecast_years, *param_logistic),
          label='Forecast', linestyle='--')
 
-plt.title('GDP per Capita Forcast (Cluster 3) - China')
-plt.xlabel('Year')
-plt.ylabel('GDP per Capita ($)')
-plt.legend(loc='upper left', bbox_to_anchor=(0, 0, 1, 1))
+plt.title('GDP per Capita Forcast (Cluster 3) - China', fontsize = 18)
+plt.xlabel('Year', fontsize = 18)
+plt.ylabel('GDP per Capita ($)', fontsize = 18)
+plt.legend(loc='upper left', bbox_to_anchor=(0, 0, 1, 1), fontsize = 18)
+plt.tick_params(axis = 'x', labelsize = 15)
+plt.tick_params(axis = 'y', labelsize = 15)
 plt.show()
