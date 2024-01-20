@@ -19,13 +19,10 @@ import warnings
 warnings.filterwarnings("ignore", category=UserWarning,
                         message="KMeans is known to have a memory leak on Windows with MKL")
 
-#Read file
-
-def read_data()
+# Read file
 co2_cap = pd.read_csv(
     r'C:\Users\uresha\Dropbox\PC\Desktop\UH\2. Applied Data Science 1\Assignment 3\fin\CO2 per $ of GDP.csv')
-        return co2_cap
-    
+
 print(co2_cap.describe())
 print(co2_cap)
 
@@ -150,6 +147,7 @@ plt.show()
 
 # DATA FITTING
 
+
 def read_data():
     """
     Read and return the data File
@@ -158,10 +156,12 @@ def read_data():
         r'C:\Users\uresha\Dropbox\PC\Desktop\UH\2. Applied Data Science 1\Assignment 3\fin\GDP per Capita.csv')
     return original_dataset
 
+
 dataset = read_data()
 print(dataset)
 
 # Read and transpose the data
+
 
 def transpose_and_clean_dataset(csv_file):
     # Read the CSV file
@@ -179,6 +179,7 @@ def transpose_and_clean_dataset(csv_file):
     df = df.set_index('Year')
 
     return df
+
 
 # Actual CSV file
 result_df = transpose_and_clean_dataset(
@@ -215,6 +216,7 @@ plt.show()
 
 # Exponential function
 
+
 def exp(t, n0, g):
     """
     Calculates exponential function with scale factor n0 and growth rate g.
@@ -228,6 +230,7 @@ def exp(t, n0, g):
     """
     Since array must not contain infs or NaNs. Nan and inf values replace by 0 
     """
+
 
 nan_mask = np.isnan(result_df["Value"])
 inf_mask = np.isinf(result_df["Value"])
@@ -244,7 +247,7 @@ param, covar = opt.curve_fit(
 print("GDP 1990:", param[0] / 1e9)
 print("Growth rate:", param[1])
 
-    """
+"""
     Since this is not a good way. Since the year-by-year data are highly correlated.
     Let curve_fit find the errors.
     """
@@ -271,9 +274,10 @@ def logistic(t, n0, g, t0):
     Calculates the logistic function with scale factor n0, growth rate g, 
     and inflection point t0.
     """
-    
+
     f = n0 / (1 + np.exp(-g*(t - t0)))
     return f
+
 
 # Check for NaN and inf values in the dataset
 nan_mask = np.isnan(result_df["Value"])
@@ -289,10 +293,12 @@ param_exp, covar_exp = curve_fit(
 
 # Using curve_fit for the logistic function
 
+
 def logistic(t, n0, g, t0):
     """Calculates the logistic function with scale factor n0, growth rate g, and inflection point t0."""
     f = n0 / (1 + np.exp(-g*(t - t0)))
     return f
+
 
 def plot_gdp_with_fits(result_df):
     # Check for NaN and inf values in the dataset
@@ -331,15 +337,18 @@ def plot_gdp_with_fits(result_df):
     plt.legend(loc='upper left', bbox_to_anchor=(0, 0, 1, 1))
     plt.show()
 
+
 # Plot graph
 plot_gdp_with_fits(result_df)
+
 
 def logistic_offset(t, n0, g, t0, offset):
     """Calculates the logistic function with an offset."""
     f = offset + n0 / (1 + np.exp(-g * (t - t0)))
     return f
 
-# Adding an offset parameter 
+
+# Adding an offset parameter
 param, covar = curve_fit(
     logistic_offset, result_df["Year"], result_df["Value"], p0=[1e12, 0.5, 1990, 5000])
 
@@ -392,6 +401,7 @@ def deriv(x, func, parameter, i, h=1e-5):
     deriv = (func(x, *params_plus_h) - func(x, *parameter)) / h
     return deriv
 
+
 def error_prop(x, func, parameter, covar):
     """
     Calculates 1 sigma error ranges for a number or array using error
@@ -417,6 +427,7 @@ def error_prop(x, func, parameter, covar):
 
     sigma = np.sqrt(var)
     return sigma
+
 
 year = np.linspace(1990, 2030, 100)
 forecast = logistic_offset(year, *param)
@@ -459,11 +470,12 @@ forecast_years = np.arange(nepal_data["Year"].min(), 2031, 1)
 
 # Plot the original data for Nepal
 plt.figure(figsize=(15, 10))
-sns.lineplot(x='Year', y='Value', data=nepal_data, ci=None, label='GDP', color = 'green', linewidth = 2)
+sns.lineplot(x='Year', y='Value', data=nepal_data, ci=None,
+             label='GDP', color='green', linewidth=2)
 
 # Plot the fitted logistic function for Nepal
 plt.plot(nepal_data["Year"], logistic(
-    nepal_data["Year"], *param_logistic), label='Logistic fit', linestyle='-', color = 'red', linewidth = 2)
+    nepal_data["Year"], *param_logistic), label='Logistic fit', linestyle='-', color='red', linewidth=2)
 
 # Plot the forecasted values
 plt.plot(forecast_years, logistic(forecast_years, *param_logistic),
@@ -492,11 +504,12 @@ forecast_years = np.arange(norway_data["Year"].min(), 2031, 1)
 
 # Plot the original data for New Zealand
 plt.figure(figsize=(15, 10))
-sns.lineplot(x='Year', y='Value', data=norway_data, ci=None, label='GDP', color = 'green', linewidth = 2)
+sns.lineplot(x='Year', y='Value', data=norway_data, ci=None,
+             label='GDP', color='green', linewidth=2)
 
 # Plot the fitted logistic function for New Zealand
 plt.plot(norway_data["Year"], logistic(
-    norway_data["Year"], *param_logistic), label='Logistic fit', linestyle='-', color = 'red', linewidth = 2)
+    norway_data["Year"], *param_logistic), label='Logistic fit', linestyle='-', color='red', linewidth=2)
 
 # Plot the forecasted values
 plt.plot(forecast_years, logistic(forecast_years, *param_logistic),
@@ -525,11 +538,12 @@ forecast_years = np.arange(china_data["Year"].min(), 2031, 1)
 
 # Plot the original data for United States
 plt.figure(figsize=(15, 10))
-sns.lineplot(x='Year', y='Value', data=china_data, ci=None, label='GDP', color = 'green', linewidth = 2)
+sns.lineplot(x='Year', y='Value', data=china_data, ci=None,
+             label='GDP', color='green', linewidth=2)
 
 # Plot the fitted logistic function for United States
 plt.plot(china_data["Year"], logistic(
-    china_data["Year"], *param_logistic), label='Logistic fit', linestyle='-', color = 'red', linewidth = 2)
+    china_data["Year"], *param_logistic), label='Logistic fit', linestyle='-', color='red', linewidth=2)
 
 # Plot the forecasted values
 plt.plot(forecast_years, logistic(forecast_years, *param_logistic),
