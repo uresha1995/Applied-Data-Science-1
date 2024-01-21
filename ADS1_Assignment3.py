@@ -270,34 +270,14 @@ plt.ylabel('GDP per Capita ($)')
 plt.legend(loc='upper left', bbox_to_anchor=(0, 0, 1, 1))
 plt.show()
 
+# Using curve_fit for the logistic function
+
 
 def logistic(t, n0, g, t0):
     """
     Calculates the logistic function with scale factor n0, growth rate g, 
     and inflection point t0.
     """
-
-    f = n0 / (1 + np.exp(-g*(t - t0)))
-    return f
-
-
-# Check for NaN and inf values in the dataset
-nan_mask = np.isnan(result_df["Value"])
-inf_mask = np.isinf(result_df["Value"])
-
-# Replace NaN and inf values
-result_df["Value"][nan_mask] = 0
-result_df["Value"][inf_mask] = 0
-
-# Parameter estimation using curve_fit for the exponential function
-param_exp, covar_exp = curve_fit(
-    exp, result_df["Year"], result_df["Value"], p0=[1.2e12, 0.03])
-
-# Using curve_fit for the logistic function
-
-
-def logistic(t, n0, g, t0):
-    """Calculates the logistic function with scale factor n0, growth rate g, and inflection point t0."""
     f = n0 / (1 + np.exp(-g*(t - t0)))
     return f
 
@@ -444,7 +424,7 @@ plt.figure(figsize=(15, 10))
 sns.lineplot(x=result_df["Year"], y=result_df["Value"], label="GDP", ci=None)
 sns.lineplot(x=year, y=forecast, label="Forecast", ci=None)
 plt.fill_between(year, low, up, color="yellow", alpha=0.7)
-plt.xlabel("Years", fontsize = 24)
+plt.xlabel("Year", fontsize = 18)
 plt.ylabel("GDP per Capita Growth", fontsize = 18)
 plt.legend(loc='upper left', bbox_to_anchor=(0, 0, 1, 1), fontsize = 18)
 plt.title('GDP per Capita Growth Forecast - Global Level ', fontsize = 18)
